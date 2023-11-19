@@ -1,0 +1,120 @@
+[gd_scene load_steps=19 format=3 uid="uid://cno08ls3s8fc"]
+
+[ext_resource type="Script" path="res://src/enemy.gd" id="1_d47lj"]
+[ext_resource type="Shader" path="res://shaders/enemy.gdshader" id="2_qf4fk"]
+[ext_resource type="Texture2D" uid="uid://dwijykwcy4dge" path="res://assets/Ninja Frog/Run (32x32).png" id="3_bj54q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frpk5"]
+resource_local_to_scene = true
+shader = ExtResource("2_qf4fk")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxmud"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewdr5"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l68s0"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rj7jr"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpjv3"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q525"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afk7q"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vpq3"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpp1k"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbilg"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fo0j"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6adw"]
+atlas = ExtResource("3_bj54q")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yfyd4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxmud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewdr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l68s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rj7jr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpjv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q525")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afk7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vpq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpp1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbilg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fo0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6adw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2liia"]
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_d47lj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_frpk5")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_yfyd4")
+animation = &"idle"
+autoplay = "idle"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_2liia")

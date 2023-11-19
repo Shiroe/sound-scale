@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbltc1ih210uu"]
+
+[ext_resource type="Texture2D" uid="uid://bheo2da7w7qcl" path="res://assets/music-note.png" id="1_700vk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6yf4"]
+atlas = ExtResource("1_700vk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0la0"]
+atlas = ExtResource("1_700vk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5ugk"]
+atlas = ExtResource("1_700vk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp1a1"]
+atlas = ExtResource("1_700vk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lxfdw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6yf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0la0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5ugk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp1a1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8u1jl"]
+radius = 14.0
+
+[node name="MusicNote" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lxfdw")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_8u1jl")
