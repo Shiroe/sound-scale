@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var hpElement = $PlayerHUD/PlayerStatsContainer/LifeContainer/LifeValue
+@onready var highscoreElement = $PlayerHUD/PlayerStatsContainer/HighscoreContainer/HighscoreValue
+@onready var audioPlayer = $AudioStreamPlayer
+@onready var bgMusic = load("res://assets/notes/demo-sound-scale.wav") as AudioStreamWAV;
 @onready var enemy: PackedScene = preload("res://scenes/enemy.tscn");
 @onready var player = $Player
 @onready var camera = $Camera2D
@@ -11,11 +15,16 @@ extends Node2D
 
 @export var spawnGCD: float = randf_range(0.1, 1.0);
 @export var moveGCD: float = 0.2;
+@export var BPM: float = 120.0;
+@export var Measure: int = 4;
+@export var BeatsInMeasure: int = 4;
 
 var activeLaneIndex: int = 0;
 var Lanes: Array[int] = [650, 600, 550, 500, 450, 400, 350, 300];
 var positionOffset = 0;
 var totalTrackTime: float = 1.0 * 60.0 * 5.0;
+
+var audioStream: AudioStreamWAV;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,11 +34,20 @@ func _ready() -> void:
 	cursorTweener = create_tween();
 	cursorTweener.bind_node(cursor);
 	setupCursorAndTimer();
+	
+	audioStream = bgMusic
+	audioPlayer.stream = audioStream;
+	#audioPlayer.play();
+	#audioPlayer.finished.connect(func(): audioPlayer.play());
+	
+	var totalMeasures = BPM / Measure;
+	var MeasureDurationInSeconds = 60.0 / totalMeasures;
+	var measureFractionInSeconds = MeasureDurationInSeconds / BeatsInMeasure;
 
-	spawnTimer.start(randf_range(0.5, 1.0));
+	spawnTimer.start(measureFractionInSeconds);
 	spawnTimer.timeout.connect(func():
 		spawnEnemies();
-		spawnTimer.start(randf_range(0.75, 1.0));
+		spawnTimer.start(measureFractionInSeconds);
 	)
 
 
@@ -38,6 +56,8 @@ func _process(delta: float) -> void:
 	camera.position = player.position;
 	spawnner.position.x = player.position.x + get_viewport().size.x;
 	setCursorPosition();
+	highscoreElement.text = str(Game.CURRENT_SCORE);
+	hpElement.text = str(Game.PLAYER_HP);
 
 
 func spawnEnemies():
