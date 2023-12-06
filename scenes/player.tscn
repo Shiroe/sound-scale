@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://byewmhggqbviy"]
+[gd_scene load_steps=53 format=3 uid="uid://byewmhggqbviy"]
 
 [ext_resource type="Texture2D" uid="uid://b3pfacr5damep" path="res://assets/AnimationSheet_Character.png" id="1_gjtgq"]
 [ext_resource type="Script" path="res://src/player.gd" id="1_m433f"]
@@ -73,6 +73,34 @@ region = Rect2(320, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3itth"]
 atlas = ExtResource("1_gjtgq")
 region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sal3g"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mny83"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kn70"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omshk"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7i4vp"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn75g"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ad40v"]
+atlas = ExtResource("2_y35lh")
+region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dv67p"]
 atlas = ExtResource("1_gjtgq")
@@ -224,6 +252,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_sal3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mny83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kn70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omshk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7i4vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kn75g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ad40v")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dv67p")
 }, {
 "duration": 1.0,
@@ -317,10 +371,12 @@ animation = &"walking"
 autoplay = "walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_n6jw7")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 1)

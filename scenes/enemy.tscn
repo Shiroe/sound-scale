@@ -116,5 +116,8 @@ autoplay = "idle"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(2, 2)
+position = Vector2(0, 2)
+scale = Vector2(2.25646, 2.3863)
 shape = SubResource("CircleShape2D_2liia")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

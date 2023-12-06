@@ -33,7 +33,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.x += SPEED * delta;
+	position.x +=  950 / 0.5 * delta;
 	
 
 
@@ -41,3 +41,4 @@ func _on_area_entered(area: Area2D) -> void:
 	#print('hit a target', area.is_in_group('enemies'))
 	if area.is_in_group('enemies'):
 		area.queue_free();
+		Game.increaseScore(noteIndex+1);

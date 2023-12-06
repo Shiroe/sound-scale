@@ -20,7 +20,6 @@ extends Node2D
 @export var BeatsInMeasure: int = 4;
 
 var activeLaneIndex: int = 0;
-var Lanes: Array[int] = [650, 600, 550, 500, 450, 400, 350, 300];
 var positionOffset = 0;
 var totalTrackTime: float = 1.0 * 60.0 * 5.0;
 
@@ -37,8 +36,8 @@ func _ready() -> void:
 	
 	audioStream = bgMusic
 	audioPlayer.stream = audioStream;
-	#audioPlayer.play();
-	#audioPlayer.finished.connect(func(): audioPlayer.play());
+	audioPlayer.play();
+	audioPlayer.finished.connect(func(): audioPlayer.play());
 	
 	var totalMeasures = BPM / Measure;
 	var MeasureDurationInSeconds = 60.0 / totalMeasures;
@@ -64,7 +63,7 @@ func spawnEnemies():
 	var en = enemy.instantiate();
 	var randIdx = randi_range(0, 7);
 	en.laneIdx = randIdx;
-	en.position.y = Lanes[randIdx] + positionOffset;
+	en.position.y = Game.LANES[randIdx] + positionOffset;
 	en.position.x = spawnner.global_position.x;
 	self.add_child(en);
 
@@ -75,9 +74,9 @@ func setCursorPosition():
 		cursorTweener.kill();
 	cursorTweener = create_tween();
 	cursorTweener.tween_property(cursor, 'position:x', cursorPos, 0.05).set_ease(Tween.EASE_IN);
-	print('percentage: ', percentage);
-	print('cursor pos:', cursorPos);
-	print('actual pos:', cursor.global_position)
+	#print('percentage: ', percentage);
+	#print('cursor pos:', cursorPos);
+	#print('actual pos:', cursor.global_position)
 
 func setupCursorAndTimer():
 	timer.wait_time = totalTrackTime;

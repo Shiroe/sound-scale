@@ -15,11 +15,11 @@ extends CharacterBody2D
 @onready var tweener: Tween
 @onready var projectileNote: PackedScene = preload("res://scenes/note_projectile.tscn");
 @onready var moveTimer: Timer = Timer.new() as Timer; 
+@onready var invisCD: Timer = Timer.new() as Timer;
 
 @export var moveGCD: float = 0.05;
 
 var activeLaneIndex: int = 0;
-var Lanes: Array[int] = [650, 600, 550, 500, 450, 400, 350, 300];
 var positionOffset = 0;
 
 @export var SPEED = 200.0
@@ -30,9 +30,12 @@ func _ready() -> void:
 	tweener = create_tween()
 	tweener.bind_node(self);
 	self.add_child(moveTimer);
+	invisCD.one_shot = true;
+	self.add_child(invisCD);
+	
 
 func _process(delta: float) -> void:
-	velocity.x = SPEED;
+	velocity.x = 950 / 4;
 	if velocity.x > 0 and not animation.is_playing():
 		animation.play("walking");
 	elif velocity.y < 0:
@@ -94,7 +97,7 @@ func _process(delta: float) -> void:
 
 func moveToLane(idx: int):
 	activeLaneIndex = idx;
-	setPosition(Vector2(self.position.x, Lanes[activeLaneIndex] + positionOffset));
+	setPosition(Vector2(self.position.x, Game.LANES[activeLaneIndex] + positionOffset));
 	moveTimer.start(moveGCD);
 
 func shoot(key: int):
@@ -111,3 +114,10 @@ func setPosition(pos: Vector2):
 		tweener.kill();
 	tweener = create_tween();
 	tweener.tween_property(self, 'position:y', pos.y, 0.05).set_ease(Tween.EASE_IN);
+	
+func takeDamage() -> void:
+	if invisCD.is_stopped():
+		invisCD.start(0.5); 
+		animation.play("hurt");
+		Game.decreasePlayerHP();
+

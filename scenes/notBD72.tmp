@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://k8d14w3we3y"]
+
+[ext_resource type="Script" path="res://src/note_projectile.gd" id="1_qmw84"]
+[ext_resource type="Texture2D" uid="uid://bheo2da7w7qcl" path="res://assets/music-note.png" id="1_r14md"]
+[ext_resource type="Shader" path="res://shaders/note_projectile.gdshader" id="2_6fom3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlbim"]
+size = Vector2(22, 25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_43m4g"]
+resource_local_to_scene = true
+shader = ExtResource("2_6fom3")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63lgp"]
+atlas = ExtResource("1_r14md")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af4ha"]
+atlas = ExtResource("1_r14md")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxogt"]
+atlas = ExtResource("1_r14md")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ch3b"]
+atlas = ExtResource("1_r14md")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvebu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63lgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af4ha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxogt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ch3b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="NoteProjectile" type="Area2D"]
+script = ExtResource("1_qmw84")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_dlbim")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_43m4g")
+sprite_frames = SubResource("SpriteFrames_xvebu")
+autoplay = "default"
+frame_progress = 0.873052
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+max_polyphony = 9
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
